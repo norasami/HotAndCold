@@ -64,3 +64,15 @@
 /HotandCold/Library/Artifacts/f3/f332e20b2ab73c62ca288e4fbdcb0eaf filter=lfs diff=lfs merge=lfs -text
 /HotandCold/Library/Artifacts/fc/fc318577cb1a3f5bdf19847bfa00a75d filter=lfs diff=lfs merge=lfs -text
 /HotandCold/Library/Artifacts/fd/fd96ce1c1b1964b3badf2936f3d9aa98 filter=lfs diff=lfs merge=lfs -text
+/HotandCold/Library/Artifacts/57/5798ab6f940a146276f93f10de01230a filter=lfs diff=lfs merge=lfs -text
+/HotandCold/Library/Artifacts/66/6696e474af53bfd68e69f41631903d28 filter=lfs diff=lfs merge=lfs -text
+/HotandCold/Library/Artifacts/69/6996a67758f69fb814ddd7fbb8c871f2 filter=lfs diff=lfs merge=lfs -text
+/HotandCold/Library/Artifacts/7d/7d30b5f749966f962e1bb3177fa25950 filter=lfs diff=lfs merge=lfs -text
+/HotandCold/Library/Artifacts/94/9473d3507b1b5ce35007195a6b072be4 filter=lfs diff=lfs merge=lfs -text
+/HotandCold/Library/Artifacts/a4/a4891d8d6a1b2bc2c67e94c89455d60f filter=lfs diff=lfs merge=lfs -text
+/HotandCold/Library/Artifacts/af/afd659c91237e7717719a8de68e6de4d filter=lfs diff=lfs merge=lfs -text
+/HotandCold/Library/Artifacts/bd/bd6e593a8cbb165402ce998073fbf4a5 filter=lfs diff=lfs merge=lfs -text
+/HotandCold/Library/Artifacts/fc/fca34794977dcde42a352c999ddd41f8 filter=lfs diff=lfs merge=lfs -text
+/HotandCold/Library/Artifacts/fd/fdf4c279eef02656f5d97f77b7ee2c13 filter=lfs diff=lfs merge=lfs -text
+*.sdxml filter=lfs diff=lfs merge=lfs -text
+*.cache filter=lfs diff=lfs merge=lfs -text
