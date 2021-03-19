@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour
     Vector3 move;
     Vector3 rotate;
     Transform shipTransform;
+    Transform goldTransform;
+    public float distanceToGold;
+    float maxDistance = 40.0f;
+    float timer = 0.0f;
 
     void Awake()
     {
@@ -19,6 +23,7 @@ public class PlayerController : MonoBehaviour
         controls.Player.Rotate.canceled += ctx => rotate = Vector2.zero;
 
         shipTransform = GameObject.FindWithTag("Player").transform;
+        goldTransform = GameObject.FindWithTag("Gold").transform;
     }
 
     void Update()
@@ -55,6 +60,19 @@ public class PlayerController : MonoBehaviour
 
         Vector3 r = new Vector3(0, 0, -rotate.x) * 100f * Time.deltaTime;
         transform.rotation = Quaternion.LookRotation(r, m);
+
+        distanceToGold = Vector2.Distance(shipPosition, goldTransform.position);
+
+        timer += Time.deltaTime;
+
+        if(distanceToGold == maxDistance)
+        {
+            Debug.Log("You literally couldn't be further off course...");
+        }
+        else if (timer >= 60.0f)
+        {
+            Debug.Log("It's been a whole minute... I'm getting bored!");
+        }
     }
 
     void OnEnable()
