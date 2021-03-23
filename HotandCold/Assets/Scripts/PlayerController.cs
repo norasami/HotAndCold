@@ -6,13 +6,13 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     HotandColdInputs controls;
-    Vector3 move;
-    Vector3 rotate;
-    Transform shipTransform;
-    Transform goldTransform;
-    public float distanceToGold;
-    float maxDistance = 40.0f;
-    float timer = 0.0f;
+    Vector3 move, rotate;
+    Transform shipTransform, goldTransform;
+    public float distanceToGold, lowPitchRange, highPitchRange, lowVolRange, highVolRange, animalSoundTimer = 0.0f;
+    float maxDistance = 40.0f, gameTimer = 0.0f, animalSoundChance, animalSoundVol;
+    public AudioClip[] angrySeagull;
+    public AudioClip dolphin, seagulls, seals, whaleLow, whaleHigh;
+    AudioSource source;
 
     void Awake()
     {
@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
 
         shipTransform = GameObject.FindWithTag("Player").transform;
         goldTransform = GameObject.FindWithTag("Gold").transform;
+
+        source = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -63,16 +65,65 @@ public class PlayerController : MonoBehaviour
 
         distanceToGold = Vector2.Distance(shipPosition, goldTransform.position);
 
-        timer += Time.deltaTime;
+        gameTimer += Time.deltaTime;
+        animalSoundTimer += Time.deltaTime;
 
-        if(distanceToGold == maxDistance)
+        if (animalSoundTimer == 15.0f)
+        {
+            StartCoroutine(AnimalSound());
+            animalSoundTimer = 0.0f;
+        }
+
+        /*if(distanceToGold == maxDistance)
         {
             Debug.Log("You literally couldn't be further off course...");
         }
-        else if (timer >= 60.0f)
+        else if (gameTimer >= 60.0f)
         {
             Debug.Log("It's been a whole minute... I'm getting bored!");
+        }*/
+    }
+
+    IEnumerator AnimalSound()
+    {
+        animalSoundChance = Random.Range(0.00f, 1.00f);
+        source.pitch = Random.Range(lowPitchRange, highPitchRange);
+        animalSoundVol = Random.Range(lowVolRange, highVolRange);
+
+        if (animalSoundChance <= 0.50f)
+        {
+            source.PlayOneShot(seagulls, animalSoundVol);
+            Debug.Log("Seagull");
         }
+        else if (animalSoundChance > 0.50f && animalSoundChance <= 0.60f)
+        {
+            for (int i = 0; i < angrySeagull.Length; i++)
+            {
+                source.PlayOneShot(angrySeagull[i], animalSoundVol);
+            }
+            Debug.Log("Angry seagull");
+        }
+        else if (animalSoundChance > 0.60f && animalSoundChance <= 0.70f)
+        {
+            source.PlayOneShot(dolphin, animalSoundVol);
+            Debug.Log("Dolphin");
+        }
+        else if (animalSoundChance > 0.70f && animalSoundChance <= 0.80f)
+        {
+            source.PlayOneShot(seals, animalSoundVol);
+            Debug.Log("Seal");
+        }
+        else if (animalSoundChance > 0.80f && animalSoundChance <= 0.90f)
+        {
+            source.PlayOneShot(whaleHigh, animalSoundVol);
+            Debug.Log("Whale High");
+        }
+        else
+        {
+            source.PlayOneShot(whaleLow, animalSoundVol);
+            Debug.Log("Whale Low");
+        }
+        yield break;
     }
 
     void OnEnable()
