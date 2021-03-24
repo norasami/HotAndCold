@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     HotandColdInputs controls;
     Vector3 move, rotate;
     Transform shipTransform, goldTransform;
-    public float distanceToGold, lowPitchRange, highPitchRange, lowVolRange, highVolRange, animalSoundTimer = 0.0f;
-    float maxDistance = 40.0f, gameTimer = 0.0f, animalSoundChance, animalSoundVol;
+    public float distanceToGold, lowPitchRange, highPitchRange, lowVolRange, highVolRange;
+    float maxDistance = 40.0f, gameTimer = 0.0f, animalSoundTimer = 0.0f, animalSoundChance, animalSoundVol;
     public AudioClip[] angrySeagull;
     public AudioClip dolphin, seagulls, seals, whaleLow, whaleHigh;
     AudioSource source;
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         gameTimer += Time.deltaTime;
         animalSoundTimer += Time.deltaTime;
 
-        if (animalSoundTimer == 15.0f)
+        if (animalSoundTimer >= 10.0f)
         {
             StartCoroutine(AnimalSound());
             animalSoundTimer = 0.0f;
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
             source.PlayOneShot(whaleLow, animalSoundVol);
             Debug.Log("Whale Low");
         }
-        yield break;
+        yield return null;
     }
 
     void OnEnable()
