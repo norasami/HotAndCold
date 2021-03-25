@@ -11,22 +11,20 @@ public class PlayerController : MonoBehaviour
     Vector3 move, rotate;
     Transform shipTransform, goldTransform;
     public float distanceToGold, lowPitchRange, highPitchRange, lowVolRange, highVolRange, wasDistant, wasTimer, deltaDistance;
-    float maxDistance = 40.0f, gameTimer = 0.0f, animalSoundTimer = 0.0f, animalSoundChance, animalSoundVol;
-    public AudioClip[] angrySeagull;
+    float  gameTimer = 0.0f, animalSoundTimer = 0.0f, animalSoundChance, animalSoundVol;
+    public AudioClip[] angrySeagull, AWarm, ACold;
     public AudioClip dolphin, seagulls, seals, whaleLow, whaleHigh;
     AudioSource shipSource;
     public Text winText;
     public bool victory = false;
 
-    public AudioClip[] AWarm;
-    public AudioClip[] ACold;
-    public AudioSource audioSource;
+   
     
 
 
     void Awake()
     {
-        audioSource = gameObject.GetComponent<AudioSource>();
+        
         controls = new HotandColdInputs();
         controls.Player.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Player.Move.canceled += ctx => move = Vector2.zero;
@@ -35,6 +33,9 @@ public class PlayerController : MonoBehaviour
 
         shipTransform = GameObject.FindWithTag("Player").transform;
         goldTransform = GameObject.FindWithTag("Gold").transform;
+        wasDistant = distanceToGold;
+        wasTimer = 0f;
+
 
 
         AWarm = new AudioClip[]
@@ -173,11 +174,11 @@ public class PlayerController : MonoBehaviour
 
             if (((deltaDistance*2) + gameTimer - wasTimer) >= 15)
             {
-                WasDistant = distanceToGold;
-                WasTimer = timer;
-                Debug.Log(distanceToGold + " " + WasTimer);
+                wasDistant = distanceToGold;
+                wasTimer = gameTimer;
+                Debug.Log(distanceToGold + " " + wasTimer);
 
-                if(distanceToGold - WasDistant <= 0)
+                if(distanceToGold - wasDistant <= 0)
                 {
                     playCold();
                 
@@ -196,14 +197,14 @@ public class PlayerController : MonoBehaviour
 
     void playWarm()
     {
-        audioSource.clip = AWarm[Random.Range(0, 8)];
-        audioSource.Play();
+        shipSource.PlayOneShot(AWarm[Random.Range(0, 8)], highVolRange);
+        
     }
 
     void playCold()
     {
-        audioSource.clip = ACold[Random.Range(0, 8)];
-        audioSource.Play();
+        shipSource.PlayOneShot(ACold[Random.Range(0, 8)], highVolRange);
+        
     }
 
     void OnEnable()
