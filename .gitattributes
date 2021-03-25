@@ -1,3 +1,4 @@
+ArtifactDB filter=lfs diff=lfs merge=lfs -text
 /HotandCold/Library/ArtifactDB filter=lfs diff=lfs merge=lfs -text
 /HotandCold/Library/Artifacts/19/19e6aaae15d35c207bae9f3913a6a127 filter=lfs diff=lfs merge=lfs -text
 /HotandCold/Library/Artifacts/36/366639dd2ec154e0852a617358d0a02f filter=lfs diff=lfs merge=lfs -text
