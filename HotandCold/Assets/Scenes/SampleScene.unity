@@ -379,14 +379,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21333fe5f85ad4949acb68004895e56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToGold: 0
-  lowPitchRange: 0.75
-  highPitchRange: 1.5
-  lowVolRange: 0.75
+  lowVolRange: 0.5
   highVolRange: 1
-  wasDistant: 0
-  wasTimer: 0
-  deltaDistance: 0
   angrySeagull:
   - {fileID: 8300000, guid: 6d336077e95e5524ba2f6a3e7c03050a, type: 3}
   - {fileID: 8300000, guid: 9f03161c816bd4246882ad8b210c2dc8, type: 3}
@@ -394,16 +388,33 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9912c783e53e1cc4e9fe5eb4dc35c2fa, type: 3}
   - {fileID: 8300000, guid: 9cd5eb53435cd7346bd329b293767ca7, type: 3}
   - {fileID: 8300000, guid: 4a314ce86f3af8c4597d6bdde6c50320, type: 3}
+  aWarm:
+  - {fileID: 8300000, guid: 1e17d473b005f824b88c92688ce10d69, type: 3}
+  - {fileID: 8300000, guid: 45a6250552b3afc429cf9925628605a6, type: 3}
+  - {fileID: 8300000, guid: 91a2e3fb278fce147aab827ae8b17377, type: 3}
+  - {fileID: 8300000, guid: bc57d25db5870c94db7bebab9478fb70, type: 3}
+  - {fileID: 8300000, guid: 2d11db04065e3f04c8fcec9bc1279ae4, type: 3}
+  - {fileID: 8300000, guid: 3e98e11e9d76f55458a379f99c879f4f, type: 3}
+  - {fileID: 8300000, guid: 1925d0bf4c8d8374e8a4e1eb2cddd2d4, type: 3}
+  - {fileID: 8300000, guid: f1041f70863eda842acc508f9faa7124, type: 3}
+  - {fileID: 8300000, guid: a7552c821a1542d428f8a5a91447d7cd, type: 3}
+  aCold:
+  - {fileID: 8300000, guid: a4f5b459c2595ee4ab8a8f1fc2856616, type: 3}
+  - {fileID: 8300000, guid: 2496c1a1512c467489fce8d8e823f648, type: 3}
+  - {fileID: 8300000, guid: b74c4ee2dff4a3440abe553909757652, type: 3}
+  - {fileID: 8300000, guid: cbc1e8bc6cd17084bbad4c3019263ec4, type: 3}
+  - {fileID: 8300000, guid: f17ca176f0360524eb559be97601604a, type: 3}
+  - {fileID: 8300000, guid: f6f5b31c4b5fe0b4da644c60d1668b90, type: 3}
+  - {fileID: 8300000, guid: 61c4ff5c73276904baea72a76f997710, type: 3}
+  - {fileID: 8300000, guid: 03786e8bccd82a247a1b13898e373d02, type: 3}
+  - {fileID: 8300000, guid: dc924b69e74b1ed449d57a39990b86cc, type: 3}
   dolphin: {fileID: 8300000, guid: b932eb38dd1643542bb60298b8d77380, type: 3}
   seagulls: {fileID: 8300000, guid: a20230b7ff23d0048bb1772f17dde855, type: 3}
   seals: {fileID: 8300000, guid: a39f1ada34909284a997af70b64782a0, type: 3}
   whaleLow: {fileID: 8300000, guid: 220827ada7ca6d14a9feaf0b91720f9d, type: 3}
   whaleHigh: {fileID: 8300000, guid: af7dbb599bbd60d468a4bb694959794b, type: 3}
   winText: {fileID: 1079929905}
-  Victory: 0
-  AWarm: []
-  ACold: []
-  audioSource: {fileID: 0}
+  victory: 0
 --- !u!114 &190844222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,14 +457,14 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1031,7 +1042,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1206459745
 GameObject:
@@ -1628,13 +1639,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f82677ad55ee94b40ae814bb3f02c9b7, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.506
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 238
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1724,13 +1735,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cf5886f4a6e2d63449957cd21f5b672c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 246
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
