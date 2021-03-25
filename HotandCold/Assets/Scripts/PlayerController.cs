@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
@@ -19,15 +20,15 @@ public class PlayerController : MonoBehaviour
     public Text winText;
     public bool Victory = false;
 
-    // public AudioClip[] AWarm;
-    // public AudioClip[] ACold;
-    // public AudioSource WarmSound;
-    // public AudioSource ColdSound;
-
+    public AudioClip[] AWarm;
+    public AudioClip[] ACold;
+    public AudioSource audioSource;
+    
 
 
     void Awake()
     {
+        audioSource = gameObject.GetComponent<AudioSource>();
         controls = new HotandColdInputs();
         controls.Player.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Player.Move.canceled += ctx => move = Vector2.zero;
@@ -39,32 +40,31 @@ public class PlayerController : MonoBehaviour
         WasDistant = distanceToGold;
         WasTimer = 0f;
 
-        /*AWarm = new AudioClip[]
+
+        AWarm = new AudioClip[]
         {
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load()
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Warm1"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Warm2"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Warm3"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Warm4"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Warm5"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Warm6"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Warm7"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Warm8"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Warm9")
         };
-        ACold = new AudioClip[]
+         ACold = new AudioClip[]
         {
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load(),
-            (AudioClip)Resources.Load()
-        };*/
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Cold1"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Cold2"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Cold3"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Cold4"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Cold5"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Cold6"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Cold7"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Cold8"),
+            (AudioClip)Resources.Load<AudioClip>("Assets/Audio/Cold9")
+         };
 
     }
 
@@ -126,23 +126,34 @@ public class PlayerController : MonoBehaviour
                 WasDistant = distanceToGold;
                 WasTimer = timer;
                 Debug.Log(distanceToGold + " " + WasTimer);
-              /*  if(distanceToGold - WasDistant <= 0)
+
+                if(distanceToGold - WasDistant <= 0)
                 {
-                    ColdSound.clip = ACold[Random.Range(0, 10)];
-                    ColdSound.play();
-                    CallAudio();
-                };
+                    playCold();
+                
+                }
                 else
                 {
-                    WarmSound.clip = AWarm[Random.Range(0, 10)];
-                    WarmSound.play();
-                    CallAudio();
-                };*/
+                    playWarm();
+                  
+                }
             }
 
         }
 
 
+    }
+
+    void playWarm()
+    {
+        audioSource.clip = AWarm[Random.Range(0, 8)];
+        audioSource.Play();
+    }
+
+    void playCold()
+    {
+        audioSource.clip = ACold[Random.Range(0, 8)];
+        audioSource.Play();
     }
 
     void OnEnable()
