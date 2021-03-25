@@ -301,9 +301,8 @@ MonoBehaviour:
   distanceToGold: 0
   lowPitchRange: 0.75
   highPitchRange: 1.5
-  lowVolRange: 0.5
+  lowVolRange: 0.75
   highVolRange: 1
-  animalSoundTimer: 0
   angrySeagull:
   - {fileID: 8300000, guid: 6d336077e95e5524ba2f6a3e7c03050a, type: 3}
   - {fileID: 8300000, guid: 9f03161c816bd4246882ad8b210c2dc8, type: 3}
