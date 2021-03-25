@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -11,8 +12,19 @@ public class PlayerController : MonoBehaviour
     Transform shipTransform;
     Transform goldTransform;
     public float distanceToGold;
-    float maxDistance = 40.0f;
     float timer = 0.0f;
+    public float WasDistant;
+    public float WasTimer;
+    public float DeltaDistance;
+    public Text winText;
+    public bool Victory = false;
+
+    // public AudioClip[] AWarm;
+    // public AudioClip[] ACold;
+    // public AudioSource WarmSound;
+    // public AudioSource ColdSound;
+
+
 
     void Awake()
     {
@@ -24,6 +36,36 @@ public class PlayerController : MonoBehaviour
 
         shipTransform = GameObject.FindWithTag("Player").transform;
         goldTransform = GameObject.FindWithTag("Gold").transform;
+        WasDistant = distanceToGold;
+        WasTimer = 0f;
+
+        /*AWarm = new AudioClip[]
+        {
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load()
+        };
+        ACold = new AudioClip[]
+        {
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load(),
+            (AudioClip)Resources.Load()
+        };*/
+
     }
 
     void Update()
@@ -65,14 +107,42 @@ public class PlayerController : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        if(distanceToGold == maxDistance)
+       
+
+        if (distanceToGold <= .5f)
         {
-            Debug.Log("You literally couldn't be further off course...");
+            winText.text = "You have found the gold";
+            Victory = true;
         }
-        else if (timer >= 60.0f)
+
+        if (Victory == false)
         {
-            Debug.Log("It's been a whole minute... I'm getting bored!");
+
+
+            DeltaDistance = Mathf.Abs(distanceToGold - WasDistant);
+
+            if (((DeltaDistance*2) + timer - WasTimer) >= 15)
+            {
+                WasDistant = distanceToGold;
+                WasTimer = timer;
+                Debug.Log(distanceToGold + " " + WasTimer);
+              /*  if(distanceToGold - WasDistant <= 0)
+                {
+                    ColdSound.clip = ACold[Random.Range(0, 10)];
+                    ColdSound.play();
+                    CallAudio();
+                };
+                else
+                {
+                    WarmSound.clip = AWarm[Random.Range(0, 10)];
+                    WarmSound.play();
+                    CallAudio();
+                };*/
+            }
+
         }
+
+
     }
 
     void OnEnable()
