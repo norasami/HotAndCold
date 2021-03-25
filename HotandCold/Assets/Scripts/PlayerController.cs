@@ -28,6 +28,10 @@ public class PlayerController : MonoBehaviour
         shipTransform = GameObject.FindWithTag("Player").transform;
         goldTransform = GameObject.FindWithTag("Gold").transform;
         shipSource = GetComponent<AudioSource>();
+    }
+
+    void Start()
+    {
         wasDistant = distanceToGold;
     }
 
