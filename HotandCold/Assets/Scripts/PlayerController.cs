@@ -8,17 +8,15 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     HotandColdInputs controls;
-    Vector3 move;
-    Vector3 rotate;
-    Transform shipTransform;
-    Transform goldTransform;
-    public float distanceToGold;
-    float timer = 0.0f;
-    public float WasDistant;
-    public float WasTimer;
-    public float DeltaDistance;
+    Vector3 move, rotate;
+    Transform shipTransform, goldTransform;
+    public float distanceToGold, lowPitchRange, highPitchRange, lowVolRange, highVolRange, wasDistant, wasTimer, deltaDistance;
+    float maxDistance = 40.0f, gameTimer = 0.0f, animalSoundTimer = 0.0f, animalSoundChance, animalSoundVol;
+    public AudioClip[] angrySeagull;
+    public AudioClip dolphin, seagulls, seals, whaleLow, whaleHigh;
+    AudioSource shipSource;
     public Text winText;
-    public bool Victory = false;
+    public bool victory = false;
 
     public AudioClip[] AWarm;
     public AudioClip[] ACold;
@@ -37,8 +35,6 @@ public class PlayerController : MonoBehaviour
 
         shipTransform = GameObject.FindWithTag("Player").transform;
         goldTransform = GameObject.FindWithTag("Gold").transform;
-        WasDistant = distanceToGold;
-        WasTimer = 0f;
 
 
         AWarm = new AudioClip[]
@@ -105,8 +101,16 @@ public class PlayerController : MonoBehaviour
 
         distanceToGold = Vector2.Distance(shipPosition, goldTransform.position);
 
-        timer += Time.deltaTime;
+        gameTimer += Time.deltaTime;
+        animalSoundTimer += Time.deltaTime;
 
+        if (animalSoundTimer >= 10.0f)
+        {
+            StartCoroutine(AnimalSound());
+            animalSoundTimer = 0.0f;
+        }
+
+        /*if(distanceToGold == maxDistance)
        
 
         if (distanceToGold <= .5f)
@@ -114,14 +118,60 @@ public class PlayerController : MonoBehaviour
             winText.text = "You have found the gold";
             Victory = true;
         }
+        else if (gameTimer >= 60.0f)
+        {
+            Debug.Log("It's been a whole minute... I'm getting bored!");
+        }*/
+    }
 
-        if (Victory == false)
+    IEnumerator AnimalSound()
+    {
+        animalSoundChance = Random.Range(0.00f, 1.00f);
+        shipSource.pitch = Random.Range(lowPitchRange, highPitchRange);
+        animalSoundVol = Random.Range(lowVolRange, highVolRange);
+
+        if (animalSoundChance <= 0.50f)
+        {
+            shipSource.PlayOneShot(seagulls, animalSoundVol);
+            Debug.Log("Seagulls");
+        }
+        else if (animalSoundChance > 0.50f && animalSoundChance <= 0.55f)
+        {
+            for (int i = 0; i < angrySeagull.Length; i++)
+            {
+                shipSource.PlayOneShot(angrySeagull[i], animalSoundVol);
+            }
+            Debug.Log("Angry seagull");
+        }
+        else if (animalSoundChance > 0.55f && animalSoundChance <= 0.70f)
+        {
+            shipSource.PlayOneShot(dolphin, animalSoundVol);
+            Debug.Log("Dolphin");
+        }
+        else if (animalSoundChance > 0.70f && animalSoundChance <= 0.80f)
+        {
+            shipSource.PlayOneShot(seals, animalSoundVol);
+            Debug.Log("Seal");
+        }
+        else if (animalSoundChance > 0.80f && animalSoundChance <= 0.90f)
+        {
+            shipSource.PlayOneShot(whaleHigh, animalSoundVol);
+            Debug.Log("Whale High");
+        }
+        else
+        {
+            shipSource.PlayOneShot(whaleLow, animalSoundVol);
+            Debug.Log("Whale Low");
+        }
+        yield return null;
+
+        if (victory == false)
         {
 
 
-            DeltaDistance = Mathf.Abs(distanceToGold - WasDistant);
+            deltaDistance = Mathf.Abs(distanceToGold - wasDistant);
 
-            if (((DeltaDistance*2) + timer - WasTimer) >= 15)
+            if (((deltaDistance*2) + gameTimer - wasTimer) >= 15)
             {
                 WasDistant = distanceToGold;
                 WasTimer = timer;
