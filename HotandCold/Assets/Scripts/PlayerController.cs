@@ -9,27 +9,16 @@ public class PlayerController : MonoBehaviour
     HotandColdInputs controls;
     Vector3 move, rotate;
     Transform shipTransform, goldTransform;
-    public float distanceToGold, lowPitchRange, highPitchRange, lowVolRange, highVolRange;
+    public float distanceToGold, lowPitchRange, highPitchRange, lowVolRange, highVolRange, wasDistant, wasTimer, deltaDistance;
     float maxDistance = 40.0f, gameTimer = 0.0f, animalSoundTimer = 0.0f, animalSoundChance, animalSoundVol;
     public AudioClip[] angrySeagull;
     public AudioClip dolphin, seagulls, seals, whaleLow, whaleHigh;
     AudioSource shipSource;
-    Vector3 move;
-    Vector3 rotate;
-    Transform shipTransform;
-    Transform goldTransform;
-    public float distanceToGold;
-    float timer = 0.0f;
-    public float WasDistant;
-    public float WasTimer;
-    public float DeltaDistance;
     public Text winText;
-    public bool Victory = false;
+    public bool victory = false;
 
-    // public AudioClip[] AWarm;
-    // public AudioClip[] ACold;
-    // public AudioSource WarmSound;
-    // public AudioSource ColdSound;
+    /*public AudioClip[] aWarm, aCold;
+    public AudioSource warmSound, coldSound;*/
 
 
 
@@ -45,10 +34,10 @@ public class PlayerController : MonoBehaviour
         goldTransform = GameObject.FindWithTag("Gold").transform;
 
         shipSource = GetComponent<AudioSource>();
-        WasDistant = distanceToGold;
-        WasTimer = 0f;
+        wasDistant = distanceToGold;
+        wasTimer = 0f;
 
-        /*AWarm = new AudioClip[]
+        /*aWarm = new AudioClip[]
         {
             (AudioClip)Resources.Load(),
             (AudioClip)Resources.Load(),
@@ -61,7 +50,7 @@ public class PlayerController : MonoBehaviour
             (AudioClip)Resources.Load(),
             (AudioClip)Resources.Load()
         };
-        ACold = new AudioClip[]
+        aCold = new AudioClip[]
         {
             (AudioClip)Resources.Load(),
             (AudioClip)Resources.Load(),
@@ -178,17 +167,17 @@ public class PlayerController : MonoBehaviour
         }
         yield return null;
 
-        if (Victory == false)
+        if (victory == false)
         {
 
 
-            DeltaDistance = Mathf.Abs(distanceToGold - WasDistant);
+            deltaDistance = Mathf.Abs(distanceToGold - wasDistant);
 
-            if (((DeltaDistance*2) + timer - WasTimer) >= 15)
+            if (((deltaDistance*2) + gameTimer - wasTimer) >= 15)
             {
-                WasDistant = distanceToGold;
-                WasTimer = timer;
-                Debug.Log(distanceToGold + " " + WasTimer);
+                wasDistant = distanceToGold;
+                wasTimer = gameTimer;
+                Debug.Log(distanceToGold + " " + wasTimer);
               /*  if(distanceToGold - WasDistant <= 0)
                 {
                     ColdSound.clip = ACold[Random.Range(0, 10)];
