@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
 {
     HotandColdInputs controls;
     Vector3 move, rotate;
-    Transform shipTransform, goldTransform;
+    Transform shipTransform;
+    GameObject gold;
     public float lowVolRange, highVolRange;
     float distanceToGold, animalSoundTimer = 0.0f, animalSoundChance, wasDistant;
     public AudioClip[] angrySeagull, aWarm, aCold;
@@ -26,13 +27,14 @@ public class PlayerController : MonoBehaviour
         controls.Player.Rotate.performed += ctx => rotate = ctx.ReadValue<Vector2>();
         controls.Player.Rotate.canceled += ctx => rotate = Vector2.zero;
         shipTransform = GameObject.FindWithTag("Player").transform;
-        goldTransform = GameObject.FindWithTag("Gold").transform;
+        gold = GameObject.FindWithTag("Gold");
         shipSource = GetComponent<AudioSource>();
     }
 
     void Start()
     {
         wasDistant = distanceToGold;
+        gold.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     void Update()
@@ -67,7 +69,7 @@ public class PlayerController : MonoBehaviour
         }
         Vector3 r = new Vector3(0, 0, -rotate.x) * 100f * Time.deltaTime;
         transform.rotation = Quaternion.LookRotation(r, m);
-        distanceToGold = Vector2.Distance(shipPosition, goldTransform.position);
+        distanceToGold = Vector2.Distance(shipPosition, gold.transform.position);
         animalSoundTimer += Time.deltaTime;
         if (animalSoundTimer >= 10.0f)
         {
@@ -75,8 +77,9 @@ public class PlayerController : MonoBehaviour
             animalSoundTimer = 0.0f;
         }
 
-        if (distanceToGold <= .5f)
+        if (distanceToGold <= 1.0f)
         {
+            gold.GetComponent<SpriteRenderer>().enabled = true;
             winText.text = "You have found the gold";
             victory = true;
         }
